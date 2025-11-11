@@ -1,3 +1,7 @@
+/* Click Listener. 
+Saves the identified data to a CSV.
+*/
+
 browser.browserAction.onClicked.addListener((tab) => {
     browser.tabs.executeScript({
       file: 'content.js'
@@ -12,26 +16,11 @@ browser.browserAction.onClicked.addListener((tab) => {
         const csvContent = convertToCSV(combinedData);
         saveAsCSV(csvContent, 'combined_rbc_data_' + Math.floor(Date.now() / 1000) + '.csv');
         writeTextFile(combinedData, 'data.txt');
-
-
-        // var txtFile = new File('data.txt');
-        // txtFile.writeln(outcombinedDataput);
-        // txtFile.close();
-        
-        
-        // var encodedUri = encodeURI(combinedData);
-        // window.open(encodedUri);
-
-
-
-
-
       }
     }).catch(error => {
       console.error('Error:', error);
     });
   });
-
 
   
 // Helper function to convert array of objects to CSV
@@ -42,6 +31,7 @@ function convertToCSV(data) {
     const rows = data.map(row => 
       headers.map(header => {
         const value = row[header];
+
         // Escape quotes and handle undefined/null values
         return `"${value ? value.toString().replace(/"/g, '""') : ''}"`;
       }).join(',')

@@ -1,19 +1,17 @@
 // Listen for messages from the background script
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    console.log("Running...");
     if (request.action === 'extractListData') {
-      // Define selectors for the lists you want to extract
-      // MODIFY THESE SELECTORS TO MATCH YOUR TARGET LISTS
+
       const listSelectors = [
-        // 'ul.items-list',      // Example: ul with class "items-list"
-        // 'div.content ul',     // Example: ul inside a div with class "content"
-        // 'ul#results'          // Example: ul with ID "results"
+
+        // The class of each unnumbered list.
+        // RBC uses repeating unnumbered lists to present day-to-day
+        // banking, 
         'ul.accounts-list'
       ];
       
       const allListData = [];
       
-      console.log(listSelectors);
 
       // Extract data from each list matching the selectors
       listSelectors.forEach(selector => {
@@ -23,8 +21,6 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
           allListData.push(...listData);
         });
       });
-      
-      console.log(allListData);
 
       // Send the extracted data back to the background script
       sendResponse({ data: allListData });
@@ -39,11 +35,17 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
    
     return listItems.map((item, index) => {
       return {
-        listIndex: listIndex + 1,
-        itemIndex: index + 1,
+        
+        // The full text. I (lazily) just parse it later. Go Python. #teampandas
         title: item.querySelector('span.accounts-table__account-link')?.textContent.trim() || '',
+
+        // The account ID as identifier
         description: item.querySelector('span.accounts-table__account-number')?.textContent.trim() || '',
+
+        // The balance itself
         balance: item.querySelector('.balance-amount--light')?.textContent.trim() || '',
+
+        // Currency
         value: item.querySelector('sup.balance-currency')?.textContent.trim() || ''
       };
     });
