@@ -10,10 +10,19 @@ When logged in to [RBC Personal Banking](https://www.rbcroyalbank.com/personal.h
 
 ## Installation
 
-This is a very personal piece of code, no I haven't published it in any official 
+This is a very personal piece of code, no I haven't published it in any official channel.
+
+### Installation as Experimental/Temporary Extension
 
 - Download the repository.
 - Load the extension by opening `about:debugging#/runtime/this-firefox` on Firefox.
+
+### Installation as Permanent Extension
+
+- Download the repository.
+- Compress the files in a Zip archive.
+- Load the extension by opening `about:addons` on Firefox and from the cog wheel options menu select `Install Add-on From File...`.
+
 
 ## Notes
 
