@@ -2,9 +2,10 @@
 Saves the identified data to a CSV.
 */
 
-browser.browserAction.onClicked.addListener((tab) => {
-    browser.tabs.executeScript({
-      file: 'content.js'
+browser.action.onClicked.addListener((tab) => {
+    browser.scripting.executeScript({
+      target: { tabId: tab.id },
+      files: ['content.js']
     }).then(() => {
       // Change the message to 'extractListData'
       return browser.tabs.sendMessage(tab.id, { action: 'extractListData' });
@@ -15,7 +16,6 @@ browser.browserAction.onClicked.addListener((tab) => {
         // Convert to CSV and save
         const csvContent = convertToCSV(combinedData);
         saveAsCSV(csvContent, 'combined_rbc_data_' + Math.floor(Date.now() / 1000) + '.csv');
-        writeTextFile(combinedData, 'data.txt');
       }
     }).catch(error => {
       console.error('Error:', error);

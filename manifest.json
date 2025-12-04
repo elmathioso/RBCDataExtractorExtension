@@ -1,20 +1,24 @@
 {
-    "manifest_version": 2,
-    "name": "RBC Bank Data Extractor",
-    "version": "1.0",
-    "description": "Extracts and combines data from specific RBC Personal Banking lists on a page and saves to a file.",
-    "permissions": ["activeTab", "downloads"],
-    "browser_action": {
-      "default_icon": {
-          "48": "icons/icon48.png"
-          },
-      "default_title": "RBC Table Extractor"
-    },
-    "background": {
-      "scripts": ["background.js"]
-    }, 
+  "manifest_version": 3,
+  "name": "RBC Bank Data Extractor",
+  "version": "1.0",
+  "description": "Extracts and combines data from specific RBC Personal Banking lists on a page and saves to a file.",
+  "permissions": [
+    "activeTab",
+    "downloads", 
+    "scripting"
+  ],
+  "action": {
     "default_icon": {
-        "48": "icons/icon48.png"
-      }
-
+      "48": "icons/icon48.png"
+    },
+    "default_title": "RBC Table Extractor"
+  },
+  "background": {
+    "service_worker": "background.js", 
+    "scripts":["background.js"]
+  },
+  "icons": {
+    "48": "icons/icon48.png"
   }
+}
